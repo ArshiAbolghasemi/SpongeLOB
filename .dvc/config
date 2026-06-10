@@ -1,0 +1,4 @@
+[core]
+    remote = spongelob
+['remote "spongelob"']
+    url = s3://spongelob
