@@ -1,0 +1,35 @@
+# DeepLOB training configuration
+data:
+  data_dir: data
+  assets: [BTCIRT, USDTIRT]
+  n_levels: 10 # order-book depth used for raw LOB + OFI features
+  norm_lookback_days: 5 # z-score each day using the previous N days (DeepLOB scheme)
+
+label:
+  horizon_k: 6 # snapshots ahead (~1 min at ~10s/snapshot)
+  alpha_bps: 2.0 # +/- threshold (bps) on the smoothed DeepLOB return
+
+window:
+  lookback_t: 100 # snapshots per input window
+
+split: # chronological, per asset
+  train: 0.70
+  val: 0.15
+  test: 0.15
+
+model:
+  n_classes: 3 # 0=down, 1=flat, 2=up
+
+train:
+  epochs: 50
+  batch_size: 64
+  lr: 0.0001
+  weight_decay: 0.0
+  early_stop_patience: 10
+  num_workers: 0
+  seed: 42
+
+paths:
+  checkpoint_dir: checkpoints
+  metrics_dir: metrics
+  log_dir: logs
