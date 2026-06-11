@@ -6,8 +6,8 @@ data:
   norm_lookback_days: 5 # z-score each day using the previous N days (DeepLOB scheme)
 
 label:
-  horizon_k: 60 # snapshots ahead (~1 min at ~10s/snapshot)
-  alpha_bps: 8.0 # +/- threshold (bps) on the smoothed DeepLOB return
+  horizon_k: 6 # snapshots ahead (~1 min at ~10s/snapshot)
+  alpha_bps: 2.0 # +/- threshold (bps) on the smoothed DeepLOB return
 
 window:
   lookback_t: 100 # snapshots per input window
