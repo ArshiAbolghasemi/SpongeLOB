@@ -221,3 +221,5 @@ __marimo__/
 logs
 metrics
 checkpoints
+
+.DS_Store
