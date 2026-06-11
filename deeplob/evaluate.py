@@ -31,6 +31,24 @@ def predict(
 
 
 @torch.no_grad()
+def predict_indexed(
+    model: torch.nn.Module,
+    ds,
+    device: torch.device,
+    batch_size: int = 256,
+    num_workers: int = 0,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, list[tuple[str, int]]]:
+    """Predict over ``ds`` in dataset order; returns ``(preds, targets, probs, ds.index)``.
+
+    ``ds.index`` is a list of ``(asset, end)`` pairs so each prediction can be traced
+    back to the snapshot it was made on (used to overlay predictions on a price chart).
+    """
+    loader = DataLoader(ds, batch_size=batch_size, num_workers=num_workers)
+    preds, targets, probs = predict(model, loader, device)
+    return preds, targets, probs, ds.index
+
+
+@torch.no_grad()
 def eval_loss(
     model: torch.nn.Module,
     loader: DataLoader,
